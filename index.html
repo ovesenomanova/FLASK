@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Web Page</title>
+</head>
+<body>
+    <h1> Страница сайта!</h1>
+    <h2> Ваше имя {{ name }}</h2>
+    <a href='/second_page'>На вторую страницу </a>
+
+    {% if show_hidden %}
+    <h3> Скрытое! {{ name }}</h3>
+    {% endif %}
+
+    {% for article in articles %}
+    <hr>
+    {{ article[1] }}
+    <a href="/article/{{article[0]}}">Читать статью</a>
+    <hr>
+    {% endfor %}
+
+</body>
+</html>
