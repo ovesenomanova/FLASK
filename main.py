@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -8,7 +8,12 @@ ARTICLES = [
     [2, 'Самая интересная', "А тут ничего не писали" ]
     ]
 
-@app.route('/')
+"""
+GET - получить с сервера. Например html страницу
+POST -отправить на сервер.
+"""
+
+@app.route('/', methods=['GET'])
 def index():
     return render_template ("index.html", name='Оксана', show_hidden=True, articles=ARTICLES)
 
@@ -21,6 +26,16 @@ def index_2():
 @app.route('/article/<idd>')
 def show_articles(idd):
     return f'Article: {idd}'
+
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    print(request.form.to_dict())
+    return redirect('/hello')
+
+@app.route('/hello', methods=['GET'])
+def hello_page():
+    return render_template('third.html')
 
 
 app.run()

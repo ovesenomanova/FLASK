@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Web Page</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <h1> Страница сайта!</h1>
+    <h2> Ваше имя {{ name }}</h2>
+    <a href='/second_page'>На вторую страницу </a>
+
+    {% if show_hidden %}
+    <h3> Скрытое! {{ name }}</h3>
+    {% endif %}
+
+    {% for article in articles %}
+    <hr>
+    {{ article[1] }}
+    <a href="/article/{{article[0]}}">Читать статью</a>
+    <hr>
+    {% endfor %}
+
+    <form action="/register" method="post">
+        <div class="form_global_wrapper">
+            <div class="form_input_wrapper">
+            <input type="text" name="username" placeholder="имя">
+            </div>
+            <div class="form_input_wrapper">
+            <input type="text" name="password" placeholder="пароль">
+            </div>>
+            <div class="form_submit_wrapper">
+            <input type="submit" value="Зарегистрироваться">
+            </div>
+        </div>
+    </form>
+
+
+</body>
+</html>
