@@ -1,41 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from routing import app
+from data.sql_request import users_create_table
+from data.db_session import GlobalDBManager
 
-app = Flask(__name__)
+from secrets import token_urlsafe
 
-ARTICLES = [
-    [0, 'Первая', "Содержание первой статьи"],
-    [1, 'Вторая', "Содержание второй статьи"],
-    [2, 'Самая интересная', "А тут ничего не писали" ]
-    ]
+if __name__ == "__main__":
+    users_create_table(db_manager=GlobalDBManager)
+    app.config['SECRET_KEY'] = token_urlsafe(16)
+    app.run()
 
-"""
-GET - получить с сервера. Например html страницу
-POST -отправить на сервер.
-"""
-
-@app.route('/', methods=['GET'])
-def index():
-    return render_template ("index.html", name='Оксана', show_hidden=True, articles=ARTICLES)
-
-
-@app.route('/second_page')
-def index_2():
-    return render_template ("second_html.html", tel='89279136988')
-
-
-@app.route('/article/<idd>')
-def show_articles(idd):
-    return f'Article: {idd}'
-
-
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    print(request.form.to_dict())
-    return redirect('/hello')
-
-@app.route('/hello', methods=['GET'])
-def hello_page():
-    return render_template('third.html')
-
-
-app.run()

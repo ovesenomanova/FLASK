@@ -7,6 +7,7 @@
           href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 <body>
+
     <h1> Страница сайта!</h1>
     <h2> Ваше имя {{ name }}</h2>
     <a href='/second_page'>На вторую страницу </a>
@@ -18,9 +19,16 @@
     {% for article in articles %}
     <hr>
     {{ article[1] }}
-    <a href="/article/{{article[0]}}">Читать статью</a>
-    <hr>
+    <a href="/article/{{article[0]}}">Читать статью</a> <hr>
     {% endfor %}
+
+    {% with msgs = get_flashed_messages() %}
+        {% if msgs %}
+            {% for message in msgs %}
+                <div> {{ message }} </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <form action="/register" method="post">
         <div class="form_global_wrapper">
